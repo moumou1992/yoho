@@ -28,7 +28,7 @@
 		<section class="section">
 			<aside>
 				<div class="aside-bigbox">
-					<img src="../../static/image/01ea4451757e763c6ba32816e61ffe6235.jpg"/>
+					<img src="../../static/image/sao.jpg"/>
 				</div>
 			</aside>
 			<article>
@@ -51,29 +51,25 @@
 					</li>
 					<li>
 				            <span>+86</span>
-				            <input  type="text"  placeholder="请输入手机号码" >
+				            <input  type="text"  placeholder="请输入手机号码" v-model="msg" @input="blu()">
+				            <div>{{msgs}}</div>
 				    </li>
 				    
                     <li>
 						    <div >
 							    <div >
 							        <span>请将下列图片点击翻转至正确方向</span>
-							        <a >换一批</a>
+							        <a @click="change()">换一批</a>
 							    </div>
 							    <div >
 							        <ul class="imgul">
-							            <li>
-							                <img src="../../static/image/images.png">
+							            <li v-for="(item,index) in arr" v-if="ishow">
+							                <img :src='item.SRC' @click="fn(index)" :class="{intop:item.ishow}">
 							            </li>
-							            <li>
-							               <img src="../../static/image/images.png">
+							            <li v-for="(item,index) in arr1" v-if="!ishow">
+							                <img :src='item.SRC' @click="fn(index)" :class="{intop:item.ishow}">
 							            </li>
-							            <li >
-							                <img src="../../static/image/images.png">
-							            </li>
-							            <li >
-	                                        <img src="../../static/image/images.png">						            
-							            </li>
+							            
 							        </ul>
 							
 							        
@@ -83,12 +79,16 @@
                     </li>
                     <li>
 					        <input  type="text" placeholder="短信验证码">
-					        <input  type="button" value="获取短信验证码">
-					        
+					        <input  type="button"  v-model="zhen" @click="zheng()" :class="{incolor:incolo}">
+					        <div v-if="incolo"><i class="fa fa-check-circle"></i>短信验证码已发送至您的手机，请查收</div>
 				    </li>
 				    <li >
-				            <input placeholder="设置密码" type="password">
-				            <div >
+				            <input placeholder="设置密码" type="password" @input="sho()" v-model="mgs" @focus="jiao()" @blur="dian()">
+				            <div v-if="jia" class="firdiv">
+				            	<span :class="{redcolor:edcolor}"><i class="fa fa-info-circle" :class="{redcolor:edcolor}"></i>{{fu}}</span><br />
+				            	<span :class="{redcolor:ecolor}"><i class="fa fa-info-circle" :class="{redcolor:ecolor}"></i>由字母、数字组合，不能包含特殊符号</span>
+				            </div>
+				            <div class="sediv">
 				                <span>低</span>
 				                <span>中</span>
 				                <span>高</span>
@@ -108,7 +108,14 @@
                     </li>
                     <li>
 			            
-			            <input type="submit" value="立即注册" ><i class="fa fa-qrcode"></i>
+			            <router-link to="/sign">立即注册</router-link><i class="fa fa-qrcode"></i>
+			            <div class="aep">
+			            	<img src="../../static/image/01dce3f4c011e664dcfed9cd836377aeb7.png" alt=""   class="aeb"/><br />
+			            	扫描二维码<br />
+			            	下载YOHO手机端<br />
+			            	<span>更多手机端下载</span>
+			            	
+			            </div>
 			           
                     </li>
                     <li>
@@ -124,11 +131,120 @@
 <script>
 import 'font-awesome/css/font-awesome.css'
 export default {
+	data:function(){
+		return{
+			arr:[
+			 {SRC:"../../static/image/images.png",ishow:false},
+			 {SRC:"../../static/image/images.png",ishow:false},
+			 {SRC:"../../static/image/images.png",ishow:false},
+			 {SRC:"../../static/image/images.png",ishow:false}
+			],
+			arr1:[
+			 {SRC:"../../static/image/mages.jpg",ishow:false},
+			 {SRC:"../../static/image/mages.jpg",ishow:false},
+			 {SRC:"../../static/image/mages.jpg",ishow:false},
+			 {SRC:"../../static/image/mages.jpg",ishow:false}
+			],
+			ishow:true,
+			msg:"",
+			msgs:"",
+			zhen:"获取短信验证码",
+			num:60,
+			incolo:false,
+			edcolor:false,
+			fu:"密码只支持6-20位字符",
+			mgs:'',
+			ecolor:false,
+			jia:false,
+			
+		}
+	},
+	methods:{
+		fn(index){
+			this.arr[index].ishow=!this.arr[index].ishow;
+			this.arr1[index].ishow=!this.arr1[index].ishow;
+		},
+		change(){
+		 this.ishow=!this.ishow
+		},
+		blu(){
+			var reg=/^1[3|4|5|7|8][0-9]{9}$/;
+			if(!reg.test(this.msg)){
+			     this.msgs="请输入正确手机号码"
+			}else{
+				this.msgs=""
+			}
+		},
+		zheng(){
+			this.num=this.num-1
+			this.zhen=this.num+"秒可重新发送"
+			setTimeout(this.zheng,1000)
+			this.incolo=true
+		},
+		sho(){
+			var regs=/^[A-Za-z0-9]+$/
+			this.edcolor=true
+			if(this.mgs.length<=5||this.mgs.length>20){
+				this.edcolor=true
+			}else{
+				this.edcolor=false
+			}
+			if(!regs.test(this.mgs)){
+				this.ecolor=true
+			}else{
+				this.ecolor=false
+			}
+		},
+		jiao(){
+			this.jia=true
+		},
+		dian(){
+			this.jia=false
+		}
+	}
 	
 }
 </script>
 
 <style scoped lang="less">
+.redcolor{
+	color: red!important;
+	
+}
+.incolor{
+	background: #777!important;
+	color: white!important;
+}
+.intop{
+	top:-60px;
+}
+.ietop{
+	top:-120px;
+}
+.istop{
+	top:-180px;
+}
+.aep{
+	width: 200px;
+	height: 260px;
+	padding-top: 20px;
+	position: absolute;
+	left: 380px;
+	top:-250px;
+	text-align: center;
+	border: 1px solid #777;
+	display: none;
+	span{
+		font-size: 10px;
+	}
+}
+.aeb{
+	width: 150px;
+	height: 150px;
+	
+}
+
+
 *{
 	 margin: 0;
     padding: 0;
@@ -225,11 +341,23 @@ a{
   margin-bottom: 20px;
   
 }
+
 .section article .article-ul > li:nth-of-type(2) {
+ position: relative;
   border: #dbdbdb solid 1px;
   width: 250px;
   height: 45px;
   line-height: 45px;
+ div{
+  	position: absolute;
+  	/*border: 1px solid red;*/
+  	width: 150px;
+  	height: 20px;
+  	font-size: 10px;
+    top:-30px;
+    right: 20px;
+    color:red
+  }
 }
 .section article .article-ul > li:nth-of-type(2) span {
   color: #dbdbdb;
@@ -241,7 +369,8 @@ a{
   text-align: center;
 }
 .section article .article-ul > li:nth-of-type(2) input {
-  height: 35px;
+  height: 42px;
+  width: 190px;
   border: none;
   text-indent: 10px;
 }
@@ -255,6 +384,15 @@ a{
   margin-bottom: 10px;
   display: inline-block;
 }
+.section article .article-ul > li:nth-of-type(4){
+	div{
+		display: inline;
+		font-size: 13px;
+		i{
+			color: deepskyblue;
+		}
+	}
+}
 .section article .article-ul > li:nth-of-type(4) input {
   height: 45px;
   border: #dbdbdb solid 1px;
@@ -266,10 +404,30 @@ a{
   color: white;
   width: 120px;
 }
-.section article .article-ul > li:nth-of-type(5) div {
+.section article .article-ul > li:nth-of-type(5){
+	position: relative;
+}
+.section article .article-ul > li:nth-of-type(5) .firdiv{
+	border:1px solid #777;
+	position: absolute;
+	left: 350px;
+	top:-10px;
+	width: 150px;
+	height: 50px;
+	font-size: 13px;
+	color: #777;
+	padding: 20px 10px;
+	i{
+		color: deepskyblue;
+	}
+	span{
+		display:block;
+	}
+} 
+.section article .article-ul > li:nth-of-type(5) .sediv {
   position: relative;
 }
-.section article .article-ul > li:nth-of-type(5) div span {
+.section article .article-ul > li:nth-of-type(5) .sediv span {
   background: #e8e8e8;
   padding: 0 8px;
   position: absolute;
@@ -279,10 +437,10 @@ a{
   left: 280px;
   color: #b9b9b9;
 }
-.section article .article-ul > li:nth-of-type(5) div span:nth-of-type(2) {
+.section article .article-ul > li:nth-of-type(5) .sediv span:nth-of-type(2) {
   left: 240px;
 }
-.section article .article-ul > li:nth-of-type(5) div span:nth-of-type(3) {
+.section article .article-ul > li:nth-of-type(5) .sediv span:nth-of-type(3) {
   left: 200px;
 }
 .section article .article-ul > li:nth-of-type(5) input {
@@ -310,13 +468,19 @@ a{
   height: 45px;
   position: relative;
 }
-.section article .article-ul > li:nth-of-type(8) input {
-  width: 300px;
+.section article .article-ul > li:nth-of-type(8):hover .aep{
+	display: block;
+}
+.section article .article-ul > li:nth-of-type(8) a{
+  display: inline-block;
+  width: 250px;
   height: 45px;
+  line-height: 45px;
   background: #555555;
   color: white;
   border: none;
   font-size: 20px;
+  text-align: center;
 }
 .section article .article-ul > li:nth-of-type(8) i {
   display: inline-block;

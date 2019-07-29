@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Login from '../pages/login'
 import Sign from '../pages/sign'
+import yohogroup from '../pages/yohogroup'
 Vue.use(Router)
 
 export default new Router({
@@ -11,6 +12,11 @@ export default new Router({
       path: '/',
       name: 'HelloWorld',
       component: HelloWorld
+    },
+    {
+      path: '/yohogroup',
+      name: 'yohogroup',
+      component: yohogroup
     },
     {
       path: '/login',

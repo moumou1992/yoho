@@ -5,7 +5,7 @@ import Login from '../pages/login'
 import Sign from '../pages/sign'
 
 import yohogroup from '../pages/yohogroup'
-
+import order from '../pages/Order'
 import index from '../pages/index'
 
 Vue.use(Router)
@@ -32,6 +32,12 @@ export default new Router({
       path: '/sign',
       name: 'Sign',
       component: Sign
+
+    },
+    {
+      path: '/Order',
+      name: 'order',
+      component: order
 
     }
   ]

@@ -12,7 +12,7 @@
 					<ul class="zi">
 						<li>查看购物车</li>
 						<li>填写订单</li>
-						<li>付款，完成购买</li>
+						<li>付款，完成购买</li>  
 					</ul>
 					<span></span>
 				</div>

@@ -1,16 +1,22 @@
 <template>
-  <div class="hello">
-   
+  <div class="index">
+      <YohoHead></YohoHead>
+      <foot></foot>
   </div>
 </template>
 
 <script>
+import YohoHead from '@/components/Header'
+import foot from '@/components/Footer'
 export default {
-  name: 'HelloWorld',
+  name: 'index',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  components:{
+    YohoHead,foot
   }
 }
 </script>

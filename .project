@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+<<<<<<< HEAD
 	<name>yoho</name>
+=======
+	<name>yohos</name>
+>>>>>>> cf3c12405b9a54b953c7d37a63528bdc072f8348
 	<comment></comment>
 	<projects>
 	</projects>
@@ -14,6 +18,7 @@
 	<natures>
 		<nature>com.aptana.projects.webnature</nature>
 	</natures>
+<<<<<<< HEAD
 	<filteredResources>
 		<filter>
 			<id>1564197523722</id>
@@ -25,4 +30,6 @@
 			</matcher>
 		</filter>
 	</filteredResources>
+=======
+>>>>>>> cf3c12405b9a54b953c7d37a63528bdc072f8348
 </projectDescription>
